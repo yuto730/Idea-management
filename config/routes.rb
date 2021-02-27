@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  namespace 'api' do
+  namespace 'api', format: 'json' do
     namespace 'v1' do
-      # resources :categories, only: [:index, :show, :create]
-      resources :ideas, only: [:index]
+      resources :categories, only: %i[index show create]
+      resources :ideas, only: %i[index show create]
     end
   end
 end

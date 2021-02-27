@@ -1,38 +1,39 @@
 module Api
   module V1
     class CategoriesController < ApplicationController
-      # before_action :set_category, only: :show
+      before_action :set_category, only: %i[show]
 
-      # def index
-      #   @categories = Category.all
-      #   render json: { data: @categories }
-      # end
+      def index
+        @categories = Category.all
+        render json: { data: @categories }
+      end
 
-      # def show
-      #   render json: { data: @category }
-      # end
+      def create
+        @category = Category.new(category_params)
+        if @category.save
+          render status: 201, json: { data: @category }
+        else
+          render status: 422, json: { data: @category.errors }
+        end
+      end
 
-      # def create
-      #   @category = Category.new(category_params)
-      #   if @category.save
-      #     render json: { status: 201 }
-      #   else
-      #     render json: { status: 422 }
-      #   end
-      # end
+      def show
+        if category_params[:name].nil?
+          render json: { data: @category }
+        else
+          render status: :not_found, json: { status: 404 }
+        end
+      end
 
-      # private
+      private
 
-      # def set_category
-      #   @category = Category.find(params[:id])
-      # end
+      def set_category
+        @category = Category.where(name: params[:id])
+      end
 
-      # def category_params
-      #   # params.require(:category).permit(:name)
-      #   params.permit(
-      #     :name
-      #   )
-      # end
+      def category_params
+        params.permit(:name)
+      end
     end
   end
 end
