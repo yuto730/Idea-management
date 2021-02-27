@@ -5,4 +5,8 @@ class Idea < ApplicationRecord
     validates :category_id
     validates :body
   end
+
+  def to_param
+    name
+  end
 end
