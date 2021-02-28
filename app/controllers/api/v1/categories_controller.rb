@@ -18,7 +18,7 @@ module Api
       end
 
       def show
-        if category_params[:name].nil?
+        if @category.find_by(name: params[:id]) != nil
           render json: { data: @category }
         else
           render status: :not_found, json: { status: 404 }

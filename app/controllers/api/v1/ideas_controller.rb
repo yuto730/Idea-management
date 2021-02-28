@@ -19,7 +19,7 @@ module Api
       end
 
       def show
-        if idea_params[:name].nil?
+        if @idea.find_by(name: params[:id]) != nil
           render json: { data: @idea }
         else
           render status: :not_found, json: { status: 404 }
