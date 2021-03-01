@@ -8,7 +8,9 @@ RSpec.describe Idea, type: :model do
 
     context '新規登録できる場合' do
       it 'category_idとbodyが存在すれば登録できる' do
-        expect(@idea).to be_valid
+        category = FactoryBot.create(:category)
+        idea = FactoryBot.build(:idea, category_id: category.id)
+        expect(idea).to be_valid
       end
     end
 
@@ -18,10 +20,10 @@ RSpec.describe Idea, type: :model do
         @idea.valid?
         expect(@idea.errors.full_messages).to include("Body can't be blank")
       end
-      it "categoryが紐付いていないと登録できない" do
-        @idea.category_id = ''
+      it 'categoryが紐付いていないと登録できない' do
+        @idea.category = nil
         @idea.valid?
-        expect(@idea.errors.full_messages).to include("Category can't be blank")
+        expect(@idea.errors.full_messages).to include('Category must exist')
       end
     end
   end

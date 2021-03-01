@@ -6,4 +6,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Category.create(name: "アプリ").ideas.create(body: "テストテキスト")
+name = Faker::Name.initials(number: 2)
+category = Category.create( name: name )
+Idea.create(
+  category_id: category.id,
+  body:        'テストテキスト',
+)
