@@ -20,10 +20,10 @@ RSpec.describe Idea, type: :model do
         @idea.valid?
         expect(@idea.errors.full_messages).to include("Body can't be blank")
       end
-      it "categoryが紐付いていないと登録できない" do
-        @idea.category_id = ''
+      it 'categoryが紐付いていないと登録できない' do
+        @idea.category = nil
         @idea.valid?
-        expect(@idea.errors.full_messages).to include("Category can't be blank")
+        expect(@idea.errors.full_messages).to include('Category must exist')
       end
     end
   end
