@@ -7,8 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 name = Faker::Name.initials(number: 2)
-category = Category.create( name: name )
+category = Category.create(name: name)
 Idea.create(
   category_id: category.id,
-  body:        'テストテキスト',
+  body: 'テストテキスト'
 )
